@@ -1,15 +1,46 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npx wrangler dev src/index.js` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npx wrangler publish src/index.js --name my-worker` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
 
-export default {
-	async fetch(request, env, ctx) {
-		return new Response("Hello World Sample !");
-	},
-};
+
+const post_answer = {
+	  Request_type: 'POST',
+	};
+	const nonpost_answer = {
+		Request_type: 'Non-POST',
+	  };
+  
+	const json_post = JSON.stringify(post_answer, null, 2);
+	const json_nonpost = JSON.stringify(nonpost_answer, null, 2);
+
+
+ addEventListener('fetch', event => {
+
+	let request = event.request;
+	
+	if (request.method.toUpperCase() === 'POST' )
+	{
+		return event.respondWith(
+			new Response(json_post, {
+			  headers: {
+				'content-type': 'application/json;charset=UTF-8',
+			  },
+			})
+		  );
+	}
+	else
+	{
+		return event.respondWith(
+			new Response(json_nonpost, 
+				{
+			  headers: {
+				'content-type': 'application/json;charset=UTF-8',
+			  },
+			})
+		  );
+	}
+
+	
+  });
+
+
+
+
+  
