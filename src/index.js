@@ -1,4 +1,4 @@
-
+// Returning different JSON answers for POST and NON-Post requests
 
 const post_answer = {
 	  Request_type: 'POST',
@@ -7,6 +7,9 @@ const post_answer = {
 		Request_type: 'Non-POST',
 	  };
   
+	  /*
+The JSON.stringify() method converts a JavaScript value to a JSON string, optionally replacing values if a replacer function is specified or optionally including only the specified properties if a replacer array is specified.
+*/
 	const json_post = JSON.stringify(post_answer, null, 2);
 	const json_nonpost = JSON.stringify(nonpost_answer, null, 2);
 
@@ -15,7 +18,7 @@ const post_answer = {
 
 	let request = event.request;
 	
-	if (request.method.toUpperCase() === 'POST' )
+	if (request.method.toUpperCase() === 'POST' ) 
 	{
 		return event.respondWith(
 			new Response(json_post, {
@@ -34,7 +37,7 @@ const post_answer = {
 				'content-type': 'application/json;charset=UTF-8',
 			  },
 			})
-		  );
+		  );	
 	}
 
 	
