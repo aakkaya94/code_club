@@ -1,49 +1,21 @@
-// Returning different JSON answers for POST and NON-Post requests
+// 4 random answer based on numbers
 
-const post_answer = {
-	  Request_type: 'POST',
-	};
-	const nonpost_answer = {
-		Request_type: 'Non-POST',
-	  };
-  
-	  /*
-The JSON.stringify() method converts a JavaScript value to a JSON string, optionally replacing values if a replacer function is specified or optionally including only the specified properties if a replacer array is specified.
-*/
-	const json_post = JSON.stringify(post_answer, null, 2);
-	const json_nonpost = JSON.stringify(nonpost_answer, null, 2);
+const randomAnswer = {
+  0: "Turkey : 🇹🇷",
+  1: "Netherlands: 🇳🇱",
+  2: "UK: 🇬🇧",
+  3: "Belgium: 🇧🇪",
+};
 
+// getting random answer between 0 and 3
 
- addEventListener('fetch', event => {
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
-	let request = event.request;
-	
-	if (request.method.toUpperCase() === 'POST' ) 
-	{
-		return event.respondWith(
-			new Response(json_post, {
-			  headers: {
-				'content-type': 'application/json;charset=UTF-8',
-			  },
-			})
-		  );
-	}
-	else
-	{
-		return event.respondWith(
-			new Response(json_nonpost, 
-				{
-			  headers: {
-				'content-type': 'application/json;charset=UTF-8',
-			  },
-			})
-		  );	
-	}
-
-	
-  });
-
-
-
-
-  
+// responnse with random answer lookup tables
+export default {
+  async fetch(request) {
+    return new Response(randomAnswer[getRandomInt(4)]);
+  },
+};
